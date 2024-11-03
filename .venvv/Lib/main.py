@@ -38,6 +38,11 @@ def get_func_distanse(cofies):
     return  cofies['Distanse']
 
 
+def hello_world():
+    with open('map.html') as file:
+      return file.read()
+
+
 my_file = open('coffee.json', 'r', encoding='CP1251')
 file_contents = my_file.read()
 cordinates = json.loads(file_contents)
@@ -69,29 +74,24 @@ m = folium.Map(location=(coords[1],coords[0]),zoom_start=17)
 first_cofe_marker = list()
 first_cofe_name = list()
 first_cofe_marker = first_page[1]
-print(first_cofe_marker['Coordinates'])
 first_cofe_name = first_page[1]
-print(first_cofe_name['Name'])
 
 for first_cofe_marker in first_page:
     folium.Marker(
     location= first_cofe_marker['Coordinates'],
     tooltip='Нажми на меня!',
     popup=first_cofe_name['Name'],
-    icon=folium.Icon(icon='home'),
+    icon=folium.Icon(color='green',icon='info-sign'),
     ).add_to(m)
 
 folium.Marker(
     location= (coords[1],coords[0]),
     tooltip='Вы тут',
     popup='Вы тут',
-    icon=folium.Icon(icon='none'),
+    icon=folium.Icon(icon='star'),
     ).add_to(m)
 m.save('map.html')
 
-def hello_world():
-    with open('map.html') as file:
-      return file.read()
 
 app = Flask(__name__)
 app.add_url_rule('/', 'hello', hello_world)
